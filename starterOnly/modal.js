@@ -269,7 +269,7 @@ checkbox1.addEventListener("change", (e) => {
     checkbox1Error.classList.add("goodMsg")
     checkbox1Error.innerHTML =
        "cette case doit être cochée";
-       checkbox1.value = "true";
+    checkbox1.value = "true";
    }
  });
 
@@ -283,33 +283,33 @@ const addUser = (e) => {
   // If form invalid, show error messages, thanks to our variables isValidFirst, Second, Mail...
 
   //first name
-if(isValidFirst == false){
+if(!isValidFirst){
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères et ne pas contenir de caractère spécial";
   }
 
    //last name
-if(isValidSecond == false){
+if(!isValidSecond){
   lastNameError.classList.add("errorMsg")
   lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères et ne pas contenir de caractère spécial";
 }
 
    //email
-   if(isValidMail == false){
+   if(!isValidMail){
     emailError.classList.add("errorMsg")
     emailError.innerHTML = "un email doit être écrit avec un @ un . et des caractères (ex: gameon@gmail.com)"
     ;
   }
   
      //birthday
-     if(isValidBirthday == false){
+     if(!isValidBirthday){
       birthdateError.classList.add("errorMsg")
       birthdateError.innerHTML = "La date de naissance doit correspondre au format jj/mm/aaaa"
       ;
     }
 
     //quantity
-    if(isValidQuantity == false){
+    if(!isValidQuantity){
     quantityError.classList.add("errorMsg")
     quantityError.innerHTML = "Le nombre doit être compris entre 0 et 100"
     ;
@@ -317,7 +317,7 @@ if(isValidSecond == false){
   
   // City choice
 
-  if(isValidLocation == false){
+  if(!isValidLocation){
     locationsError.classList.add("errorMsg")
     locationsError.innerHTML = "cocher au moins une case";
   }
@@ -326,12 +326,12 @@ if(isValidSecond == false){
 
   // Form Validation by our variables IsValid...
 
-if(isValidFirst == false || isValidSecond == false || isValidMail == false || isValidBirthday == false || isValidQuantity == false || isValidLocation == false || checkbox1.value == "false"){
+if(!isValidFirst || !isValidSecond || !isValidMail || !isValidBirthday || !isValidQuantity || !isValidLocation || checkbox1.value == "false"){
   alert("formulaire invalide (pensez à remplir tous les champs sans erreurs, à cocher le lieu souhaité du tournoi et accepter les conditions d'utilisation")
 } 
 else {
   // Closing modal, display alert and refresh page when form validated
-  
+
   closeModal()
   alert("formulaire validé !")
   window.location.reload();
