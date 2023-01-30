@@ -348,8 +348,11 @@ if(isValidFirst == false || isValidSecond == false || isValidMail == false || is
   alert("formulaire invalide (pensez à remplir tous les champs sans erreurs, à cocher le lieu souhaité du tournoi et accepter les conditions d'utilisation")
 } 
 else {
+  
   closeModal()
   alert("formulaire validé !")
+  window.location.reload();
+  
 }
 };
 
