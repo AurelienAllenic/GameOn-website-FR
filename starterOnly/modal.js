@@ -42,15 +42,11 @@ const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
-
 const locations = document.getElementById("locations")
-const radios = document.querySelectorAll('input[type="radio"]');
 const locationRadioadioButtons = document.querySelectorAll(
   "input[name='location']"
 );
-
 const checkbox1 = document.getElementById("checkbox1");
-const checkbox2 = document.getElementById("checkbox2");
 const submit = document.getElementById("btn-submit")
 
 //------------------------------------------------------------//
@@ -62,15 +58,8 @@ const lastNameError = document.getElementById("lastNameErrorMsg");
 const emailError = document.getElementById("emailErrorMsg");
 const birthdateError = document.getElementById("birthdateErrorMsg");
 const quantityError = document.getElementById("quantityErrorMsg");
-
-
 const locationsError = document.getElementById("locationsErrorMsg")
-
 const checkbox1Error = document.getElementById("checkbox1ErrorMsg");
-const checkbox2Error = document.getElementById("checkbox2ErrorMsg");
-
-// Submit button //
-
 const submitError = document.getElementsByClassName("btn-submitErrorMsg")
 
 //------------------------------------------------------------//
@@ -84,14 +73,16 @@ let isValidQuantity = false;
 let isValidLocation = false;
 let isValidCheckbox = false;
 
-// Handling firstName Errors
+//  firstName Errors
 
 firstName.addEventListener("input", (e) => {
+  // If nothing was written in this input, value null and isValidFirst false
   if (e.target.value.length == 0) {
     firstNameError.innerHTML = "";
     valueFirstName = null;
     isValidFirst = false;
     console.log(valueFirstName);
+  // If we are not between 3 and 25 characters, we display an error message, value null and isValidFirst false
   } else if (e.target.value.length < 3 || e.target.value.length > 25) {
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
@@ -99,12 +90,14 @@ firstName.addEventListener("input", (e) => {
     valueFirstName = null;
     isValidFirst = false;
   }
+  // If we are between 3 and 25 characters, we display a green message, value equal to what is written and isValid true
   if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
     firstNameError.classList.add("goodMsg")
     firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères";
     valueFirstName = e.target.value;
     isValidFirst = true;
   }
+  // If we are between 3 and 25 characters, but some special characters are there, we delete our class for green messages and add a class for errors. display a green message, value null and isValid false
   if (
     !e.target.value.match(/^[a-z A-Z]{3,25}$/) &&
     e.target.value.length > 3 &&
@@ -114,14 +107,14 @@ firstName.addEventListener("input", (e) => {
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
       "le prénom ne doit pas contenir de caractère spécial (accent, chiffre)";
-    console.log("caractère spécial");
     isValidFirst = false;
+    valueFirstName = null;
   }
 });
 
 //------------------------------------------------------------//
 
-// Gestion du lastName
+// lastName Regex and messages style, same as firstName
 
 lastName.addEventListener("input", (e) => {
   if (e.target.value.length == 0) {
@@ -156,7 +149,7 @@ lastName.addEventListener("input", (e) => {
 
 //------------------------------------------------------------//
 
-// Gestion du mail
+// Mail Regex and messages style
 
 email.addEventListener("input", (e) => {
   if (e.target.value.length == 0) {
@@ -184,7 +177,7 @@ email.addEventListener("input", (e) => {
 
 //------------------------------------------------------------//
 
-// Gestion du birthdate
+// Birthdate Regex and messages style
 
 birthdate.addEventListener("input", (e) => {
  console.log(e.target.value);
@@ -210,7 +203,7 @@ birthdate.addEventListener("input", (e) => {
 //------------------------------------------------------------//
 
 
-// Gestion de la quantity
+// Quantity Regex and messages style
 
 quantity.addEventListener("input", (e) => {
   console.log(e.target.value);
@@ -237,15 +230,14 @@ quantity.addEventListener("input", (e) => {
  //------------------------------------------------------------//
 
 
-// Gestion du cities checkbox
+// Cities checkbox Regex and messages style
+// We put locationValue="" to prevent errors and bad behaviour
 locationValue="";
 locationRadioadioButtons.forEach((btn) =>
-
   btn.addEventListener("change", () => {
     const checkedRadioButtons = document.querySelector(
       "input[name='location']:checked"
     );
-
     if (checkedRadioButtons !== null) {
       locationsError.classList.add("goodMsg")
       locationsError.innerHTML = "cocher au moins une case";
@@ -263,11 +255,10 @@ locationRadioadioButtons.forEach((btn) =>
 
  //------------------------------------------------------------//
 
-/* Gestion du lu et accepté */
+// Acceptation checkbox Regex and messages style
 
 checkbox1.value = "true";
 checkbox1.addEventListener("change", (e) => {
-  
    if (checkbox1.checked == false) {
     checkbox1Error.classList.remove("goodMsg")
     checkbox1Error.classList.add("errorMsg")
@@ -283,13 +274,13 @@ checkbox1.addEventListener("change", (e) => {
  });
 
  //------------------------------------------------------------//
-// objet contact
 
-let users = [];
+// Function that will be launch on validation of the form
+
 const addUser = (e) => {
-  e.preventDefault(); // Empêcher le rechargement de la page lors du clic
+  e.preventDefault(); // Prevent reloading on submit
 
-  // Montrer les erreurs à l'utilisateur si form incorrect
+  // If form invalid, show error messages, thanks to our variables isValidFirst, Second, Mail...
 
   //first name
 if(isValidFirst == false){
@@ -324,30 +315,22 @@ if(isValidSecond == false){
     ;
   }
   
-  //Choix de la ville
+  // City choice
 
   if(isValidLocation == false){
     locationsError.classList.add("errorMsg")
     locationsError.innerHTML = "cocher au moins une case";
   }
 
-  let user = {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    email: email.value,
-    birthdate: birthdate.value,
-    quantity: quantity.value,
-    location: locationValue,
-    isAccepted: checkbox1.value,
-  };
-  console.log(user)
-  /*document.querySelectorAll(".formData  ")[0].reset(); // Pour reset le form
-  //Vérification de la prise en compte de la création de l'objet*/
+  /* ------------------------------------------------- */
+
+  // Form Validation by our variables IsValid...
 
 if(isValidFirst == false || isValidSecond == false || isValidMail == false || isValidBirthday == false || isValidQuantity == false || isValidLocation == false || checkbox1.value == "false"){
   alert("formulaire invalide (pensez à remplir tous les champs sans erreurs, à cocher le lieu souhaité du tournoi et accepter les conditions d'utilisation")
 } 
 else {
+  // Closing modal, display alert and refresh page when form validated
   
   closeModal()
   alert("formulaire validé !")
@@ -355,5 +338,5 @@ else {
   
 }
 };
-
+/* ---------------------------------------------------------- */
 submit.addEventListener("click", addUser);
