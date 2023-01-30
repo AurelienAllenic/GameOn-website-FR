@@ -73,7 +73,10 @@ img {
   font-size: 17px;
   color: red;
 }
-
+.goodMsg{
+  font-size: 17px;
+  color: green;
+}
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
