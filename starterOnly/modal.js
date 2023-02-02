@@ -84,6 +84,7 @@ firstName.addEventListener("input", (e) => {
     console.log(valueFirstName);
   // If we are not between 3 and 25 characters, we display an error message, value null and isValidFirst false
   } else if (e.target.value.length < 3 || e.target.value.length > 25) {
+    firstNameError.classList.remove("goodMsg")
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
       "Le prénom doit comporter entre 3 et 25 caractères";
@@ -119,12 +120,13 @@ firstName.addEventListener("input", (e) => {
 lastName.addEventListener("input", (e) => {
   if (e.target.value.length == 0) {
     lastNameError.innerHTML = "";
-    valueFirstName = null;
+    valueLastName = null;
     isValidSecond = false;
   } else if (e.target.value.length < 3 || e.target.value.length > 25) {
+    lastNameError.classList.remove("goodMsg")
     lastNameError.classList.add("errorMsg")
     lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères";
-    valueFirstName = null;
+    valueLastName = null;
     isValidSecond = false;
   }
   if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
@@ -208,10 +210,14 @@ birthdate.addEventListener("input", (e) => {
 quantity.addEventListener("input", (e) => {
   console.log(e.target.value);
    if (e.target.value.length == 0) {
-     quantityError.innerHTML = "";
+    quantityError.classList.remove("goodMsg")
+    quantityError.classList.add("errorMsg")
+    quantityError.innerHTML =
+    "Le nombre doit être compris entre 0 et 100";
      valueQuantity = null;
      isValidQuantity = false;
    } else if (e.target.value.match(/^((100((\.|,)[0-9]{1,2})?)|([0-9]{1,2}((\.|,)[0-9]{0,2})?))$/)) {
+    quantityError.classList.remove("errorMsg")
     quantityError.classList.add("goodMsg")
     quantityError.innerHTML =
       "Le nombre doit être compris entre 0 et 100";
@@ -219,6 +225,7 @@ quantity.addEventListener("input", (e) => {
      isValidQuantity = true;
      console.log(isValidQuantity)
    } else {
+    quantityError.classList.remove("goodMsg")
     quantityError.classList.add("errorMsg")
      quantityError.innerHTML =
        "Le nombre doit être compris entre 0 et 100";
