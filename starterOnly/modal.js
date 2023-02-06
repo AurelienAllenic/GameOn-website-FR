@@ -78,13 +78,12 @@ let isValidCheckbox = false;
 firstName.addEventListener("input", (e) => {
   // If nothing was written in this input, value null and isValidFirst false
   if (e.target.value.length == 0) {
-    firstNameError.innerHTML = "";
+    firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères";
     valueFirstName = null;
     isValidFirst = false;
     console.log(valueFirstName);
   // If we are not between 3 and 25 characters, we display an error message, value null and isValidFirst false
   } else if (e.target.value.length < 3 || e.target.value.length > 25) {
-    firstNameError.classList.remove("goodMsg")
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
       "Le prénom doit comporter entre 3 et 25 caractères";
@@ -93,8 +92,8 @@ firstName.addEventListener("input", (e) => {
   }
   // If we are between 3 and 25 characters, we display a green message, value equal to what is written and isValid true
   if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
-    firstNameError.classList.add("goodMsg")
-    firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères";
+    firstNameError.classList.remove("errorMsg")
+    firstNameError.innerHTML = "";
     valueFirstName = e.target.value;
     isValidFirst = true;
   }
@@ -123,15 +122,13 @@ lastName.addEventListener("input", (e) => {
     valueLastName = null;
     isValidSecond = false;
   } else if (e.target.value.length < 3 || e.target.value.length > 25) {
-    lastNameError.classList.remove("goodMsg")
     lastNameError.classList.add("errorMsg")
     lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères";
     valueLastName = null;
     isValidSecond = false;
   }
   if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
-    lastNameError.classList.add("goodMsg")
-    lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères";
+    lastNameError.innerHTML = "";
     valueLastName = e.target.value;
     isValidSecond = true;
   }
@@ -140,7 +137,6 @@ lastName.addEventListener("input", (e) => {
     e.target.value.length > 3 &&
     e.target.value.length < 25
   ) {
-    lastNameError.classList.remove("goodMsg")
     lastNameError.classList.add("errorMsg")
     lastNameError.innerHTML =
       "le nom ne doit pas contenir de caractère spécial (accent, chiffre)";
@@ -159,8 +155,8 @@ email.addEventListener("input", (e) => {
     valueEmail = null;
     isValidMail = false;
   } else if (e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-    emailError.classList.add("goodMsg")
-    emailError.innerHTML = "un email doit être écrit avec un @ un . et des caractères (ex: gameon@gmail.com)";
+    emailError.classList.remove("errorMsg")
+    emailError.innerHTML = "";
     valueEmail = e.target.value;
     isValidMail = true;
   }
@@ -168,7 +164,6 @@ email.addEventListener("input", (e) => {
     !e.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) &&
     !e.target.value == 0
   ) {
-    emailError.classList.remove("goodMsg")
     emailError.classList.add("errorMsg")
     emailError.innerHTML =
       "un email doit être écrit avec un @ un . et des caractères (ex: gameon@gmail.com)";
@@ -188,12 +183,11 @@ birthdate.addEventListener("input", (e) => {
     valueBirthdate = null;
     isValidBirthday = false;
   } else if (e.target.value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
-    birthdateError.classList.add("goodMsg")
-    birthdateError.innerHTML = "La date de naissance doit correspondre au format jj/mm/aaaa";
+    birthdateError.classList.remove("errorMsg")
+    birthdateError.innerHTML = "";
     valueBirthdate = e.target.value;
     isValidBirthday = true;
   } else {
-    birthdateError.classList.remove("goodMsg")
     birthdateError.classList.add("errorMsg")
     birthdateError.innerHTML =
       "La date de naissance doit correspondre au format jj/mm/aaaa";
@@ -210,7 +204,6 @@ birthdate.addEventListener("input", (e) => {
 quantity.addEventListener("input", (e) => {
   console.log(e.target.value);
    if (e.target.value.length == 0) {
-    quantityError.classList.remove("goodMsg")
     quantityError.classList.add("errorMsg")
     quantityError.innerHTML =
     "Le nombre doit être compris entre 0 et 100";
@@ -218,14 +211,12 @@ quantity.addEventListener("input", (e) => {
      isValidQuantity = false;
    } else if (e.target.value.match(/^((100((\.|,)[0-9]{1,2})?)|([0-9]{1,2}((\.|,)[0-9]{0,2})?))$/)) {
     quantityError.classList.remove("errorMsg")
-    quantityError.classList.add("goodMsg")
     quantityError.innerHTML =
-      "Le nombre doit être compris entre 0 et 100";
+      "";
      valueQuantity = e.target.value;
      isValidQuantity = true;
      console.log(isValidQuantity)
    } else {
-    quantityError.classList.remove("goodMsg")
     quantityError.classList.add("errorMsg")
      quantityError.innerHTML =
        "Le nombre doit être compris entre 0 et 100";
@@ -246,15 +237,14 @@ locationRadioadioButtons.forEach((btn) =>
       "input[name='location']:checked"
     );
     if (checkedRadioButtons !== null) {
-      locationsError.classList.add("goodMsg")
-      locationsError.innerHTML = "cocher au moins une case";
+      locationsError.classList.remove("errorMsg")
+      locationsError.innerHTML = "";
       locationValue = checkedRadioButtons.value;
       isValidLocation = true;
     } else {
-      locationsError.classList.remove("goodMsg")
       locationsError.classList.add("errorMsg")
-      locationsError.innerHTML = "cocher au moins une case";
-      locationValue = "";
+      locationsError.innerHTML = "cocher une case";
+      locationValue = null;
       isValidLocation = false;
     }
   })
@@ -267,15 +257,13 @@ locationRadioadioButtons.forEach((btn) =>
 checkbox1.value = "true";
 checkbox1.addEventListener("change", (e) => {
    if (checkbox1.checked == false) {
-    checkbox1Error.classList.remove("goodMsg")
     checkbox1Error.classList.add("errorMsg")
     checkbox1Error.innerHTML = "cette case doit être cochée";
      checkbox1.value = "false";
    } else {
     checkbox1Error.classList.remove("errorMsg")
-    checkbox1Error.classList.add("goodMsg")
     checkbox1Error.innerHTML =
-       "cette case doit être cochée";
+       "";
     checkbox1.value = "true";
    }
  });
