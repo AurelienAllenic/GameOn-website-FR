@@ -103,7 +103,6 @@ firstName.addEventListener("input", (e) => {
     e.target.value.length > 3 &&
     e.target.value.length < 25
   ) {
-    firstNameError.classList.remove("goodMsg")
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
       "le prénom ne doit pas contenir de caractère spécial (accent, chiffre)";
@@ -228,9 +227,8 @@ quantity.addEventListener("input", (e) => {
  //------------------------------------------------------------//
 
 
-// Cities checkbox Regex and messages style
-// We put locationValue="" to prevent errors and bad behaviour
-locationValue="";
+// Cities checkbox
+
 locationRadioadioButtons.forEach((btn) =>
   btn.addEventListener("change", () => {
     const checkedRadioButtons = document.querySelector(
@@ -272,7 +270,7 @@ checkbox1.addEventListener("change", (e) => {
 
 // Function that will be launch on validation of the form
 
-const addUser = (e) => {
+const validateForm = (e) => {
   e.preventDefault(); // Prevent reloading on submit
 
   // If form invalid, show error messages, thanks to our variables isValidFirst, Second, Mail...
@@ -314,7 +312,7 @@ if(!isValidSecond){
 
   if(!isValidLocation){
     locationsError.classList.add("errorMsg")
-    locationsError.innerHTML = "cocher au moins une case";
+    locationsError.innerHTML = "cocher une case";
   }
 
   /* ------------------------------------------------- */
@@ -334,4 +332,4 @@ else {
 }
 };
 /* ---------------------------------------------------------- */
-submit.addEventListener("click", addUser);
+submit.addEventListener("click", validateForm);
