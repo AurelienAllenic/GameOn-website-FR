@@ -11,6 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const modalValidate = document.querySelector(".bgValidate")
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -18,6 +19,11 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+}
+
+// launch modal Validation
+function launchModalValidate() {
+  modalValidate.style.display = "block";
 }
 
 // --------------------------Close modal------------------------ //
@@ -30,6 +36,12 @@ const closeBtn = document.getElementsByClassName("close");
 function closeModal() {
   modalbg.style.display = "none";
   console.log(closeBtn);
+}
+
+// Function called after validation of the form, when the user clicks on close
+function closeModalValidate(){
+  modalValidate.style.display = "none";
+  window.location.reload()
 }
 
 //-------------------------------------------------------------------//
@@ -78,20 +90,20 @@ let isValidCheckbox = false;
 firstName.addEventListener("input", (e) => {
   // If nothing was written in this input, value null and isValidFirst false
   if (e.target.value.length == 0) {
-    firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères";
+    firstNameError.innerHTML = "Le prénom doit comporter entre 2 et 25 caractères";
     valueFirstName = null;
     isValidFirst = false;
     console.log(valueFirstName);
-  // If we are not between 3 and 25 characters, we display an error message, value null and isValidFirst false
-  } else if (e.target.value.length < 3 || e.target.value.length > 25) {
+  // If we are not between 2 and 25 characters, we display an error message, value null and isValidFirst false
+  } else if (e.target.value.length < 2 || e.target.value.length > 25) {
     firstNameError.classList.add("errorMsg")
     firstNameError.innerHTML =
-      "Le prénom doit comporter entre 3 et 25 caractères";
+      "Le prénom doit comporter entre 2 et 25 caractères";
     valueFirstName = null;
     isValidFirst = false;
   }
   // If we are between 3 and 25 characters, we display a green message, value equal to what is written and isValid true
-  if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
+  if (e.target.value.match(/^[a-z A-Z]{2,25}$/)) {
     firstNameError.classList.remove("errorMsg")
     firstNameError.innerHTML = "";
     valueFirstName = e.target.value;
@@ -99,8 +111,8 @@ firstName.addEventListener("input", (e) => {
   }
   // If we are between 3 and 25 characters, but some special characters are there, we delete our class for green messages and add a class for errors. display a green message, value null and isValid false
   if (
-    !e.target.value.match(/^[a-z A-Z]{3,25}$/) &&
-    e.target.value.length > 3 &&
+    !e.target.value.match(/^[a-z A-Z]{2,25}$/) &&
+    e.target.value.length > 2 &&
     e.target.value.length < 25
   ) {
     firstNameError.classList.add("errorMsg")
@@ -120,20 +132,20 @@ lastName.addEventListener("input", (e) => {
     lastNameError.innerHTML = "";
     valueLastName = null;
     isValidSecond = false;
-  } else if (e.target.value.length < 3 || e.target.value.length > 25) {
+  } else if (e.target.value.length < 2 || e.target.value.length > 25) {
     lastNameError.classList.add("errorMsg")
-    lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères";
+    lastNameError.innerHTML = "Le nom doit comporter entre 2 et 25 caractères";
     valueLastName = null;
     isValidSecond = false;
   }
-  if (e.target.value.match(/^[a-z A-Z]{3,25}$/)) {
+  if (e.target.value.match(/^[a-z A-Z]{2,25}$/)) {
     lastNameError.innerHTML = "";
     valueLastName = e.target.value;
     isValidSecond = true;
   }
   if (
-    !e.target.value.match(/^[a-z A-Z]{3,25}$/) &&
-    e.target.value.length > 3 &&
+    !e.target.value.match(/^[a-z A-Z]{2,25}$/) &&
+    e.target.value.length > 2 &&
     e.target.value.length < 25
   ) {
     lastNameError.classList.add("errorMsg")
@@ -278,13 +290,13 @@ const validateForm = (e) => {
   //first name
 if(!isValidFirst){
     firstNameError.classList.add("errorMsg")
-    firstNameError.innerHTML = "Le prénom doit comporter entre 3 et 25 caractères et ne pas contenir de caractère spécial";
+    firstNameError.innerHTML = "Le prénom doit comporter entre 2 et 25 caractères et ne pas contenir de caractère spécial";
   }
 
    //last name
 if(!isValidSecond){
   lastNameError.classList.add("errorMsg")
-  lastNameError.innerHTML = "Le nom doit comporter entre 3 et 25 caractères et ne pas contenir de caractère spécial";
+  lastNameError.innerHTML = "Le nom doit comporter entre 2 et 25 caractères et ne pas contenir de caractère spécial";
 }
 
    //email
@@ -323,11 +335,10 @@ if(!isValidFirst || !isValidSecond || !isValidMail || !isValidBirthday || !isVal
   alert("formulaire invalide (pensez à remplir tous les champs sans erreurs, à cocher le lieu souhaité du tournoi et accepter les conditions d'utilisation")
 } 
 else {
-  // Closing modal, display alert and refresh page when form validated
+  // Closing modal, display validation modal
 
   closeModal()
-  alert("formulaire validé !")
-  window.location.reload();
+  launchModalValidate()
   
 }
 };
